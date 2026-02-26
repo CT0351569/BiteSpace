@@ -24,7 +24,7 @@ The repository contains two main components:
 - Social features: posts, comments, likes  
 - Data analytics and search capabilities using Elasticsearch  
 - Structured project folders for clarity and maintainability
-- 
+
 ## Documentation
 The **final project report** is available here:  
 -[Final Report (PDF)](BiteSpace/docs/Report.pdf)
