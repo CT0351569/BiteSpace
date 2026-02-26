@@ -27,7 +27,7 @@ The repository contains two main components:
 - 
 ## Documentation
 The **final project report** is available here:  
-- [Final Report (PDF)](docs/Report.pdf)  
+-[Final Report (PDF)](BiteSpace/docs/Report.pdf)
 
 > **Screenshots of the app and key interfaces can be found in the report starting from page 45 onwards.**  
 
