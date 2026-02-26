@@ -1,0 +1,43 @@
+{
+  "expo": {
+    "name": "DineDirection",
+    "slug": "DineDirection",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.yourname.dinedirection",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.yourname.dinedirection",
+      "versionCode": 1
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": ["expo-router", "expo-font"],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "supabaseUrl": "https://adybybuoqeunggekybzl.supabase.co",
+      "supabaseAnonKey": "YeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFkeWJ5YnVvcWV1bmdnZWt5YnpsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA4MjI1MTgsImV4cCI6MjA0NjM5ODUxOH0.NOrMKvq0iDBZF0QtVSe5Ql670jR61LktY2ET1Jjoqtc"
+    },
+    "newArchEnabled": true
+  }
+}

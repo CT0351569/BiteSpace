@@ -1,0 +1,93 @@
+INSERT INTO quests (quest_name, quest_exp, start_date, end_date, image_url)
+VALUES
+('Past Quest', 100, '2024-01-01', '2024-02-01', 'https://adybybuoqeunggekybzl.supabase.co/storage/v1/object/public/BiteSpace/jaype-sison-vXHF5T0STQ8-unsplash.jpg'),    
+('Future Quest', 200, DATE_ADD(CURRENT_DATE, INTERVAL 2 MONTH), DATE_ADD(CURRENT_DATE, INTERVAL 3 MONTH), 'https://adybybuoqeunggekybzl.supabase.co/storage/v1/object/public/BiteSpace/jaype-sison-vXHF5T0STQ8-unsplash.jpg'),
+('Ongoing Quest', 150, DATE_SUB(CURRENT_DATE, INTERVAL 1 DAY), DATE_ADD(CURRENT_DATE, INTERVAL 2 MONTH), 'https://adybybuoqeunggekybzl.supabase.co/storage/v1/object/public/BiteSpace/jaype-sison-vXHF5T0STQ8-unsplash.jpg');
+
+
+INSERT INTO buddylist(user_id,friend_user_id,status)
+VALUES(1,3,'accepted');
+
+Insert into restaurants(brandName, cuisine, halal, promotion)
+values('McDonalds', 'Western', 1, 1),
+('KFC', 'Western', 1, 0),
+('Subway', 'Western', 1, 0),
+('LongJohnSilver', 'Western', 1, 1),
+('ABC Eatery', 'Indian', 1, 0),
+('Collins', 'Western', 0, 0);
+
+ 
+INSERT INTO outlet_details (restaurant_id, address, location, likes, profile_pic, featured, promotion)
+VALUES
+(1, 'ChinaTown Point', 'Central', 0, 'https://adybybuoqeunggekybzl.supabase.co/storage/v1/object/public/BiteSpace/r1.jpg', 1, 0),
+(2, 'Clementi Central', 'West', 0, 'https://adybybuoqeunggekybzl.supabase.co/storage/v1/object/public/BiteSpace/r2.jpg', 0, 0),
+(3, 'Northshore Point', 'North', 0, 'https://adybybuoqeunggekybzl.supabase.co/storage/v1/object/public/BiteSpace/r3.jpg', 0, 0),
+(4, 'Changi Village', 'East', 0, 'https://adybybuoqeunggekybzl.supabase.co/storage/v1/object/public/BiteSpace/r4.jpg', 0, 0),
+(5, 'Queenstown Shopping Center', 'Central', 0, 'https://adybybuoqeunggekybzl.supabase.co/storage/v1/object/public/BiteSpace/r5.jpg', 0, 0),
+(6, 'Orchard Plaza', 'Central', 0, 'https://adybybuoqeunggekybzl.supabase.co/storage/v1/object/public/BiteSpace/r6.jpg', 0, 1);
+
+
+insert into reviews(outlet_id,client_id,review,rating,reviewDateTime)
+values(1,1,'wow the food was amazing!', 5, now()),
+(2,1,'wow the food was amazing!', 5, now()),
+(3,1,'wow the food was amazing!', 5, now()),
+(4,1,'wow the food was amazing!', 5, now()),
+(5,1,'wow the food was amazing!', 5, now()),
+(6,1,'wow the food was amazing!', 5, now());
+
+INSERT INTO posts(client_id,post_time,image_url,post_title)
+Values(1,now(),'https://adybybuoqeunggekybzl.supabase.co/storage/v1/object/public/BiteSpace/dilan-jeans-bandung-As5fYl_6TME-unsplash.jpg','Yummy!'),
+(2,now(),'https://adybybuoqeunggekybzl.supabase.co/storage/v1/object/public/BiteSpace/hexandcube-h05BviyRzEo-unsplash.jpg', 'Awesome!');
+
+
+// Mock data for clients was inserted via 'register' function in the app. This is because inserting diretly from SQL would not update
+the elasticsearch index. elasticsearch index is updated via listeners and would only be updated whenever an entry is updated from flask.
+
+
+INSERT INTO promotions(outlet_id, PromotionTitle, PromotionPicture, PromotionTier, PromotionDateStart, PromotionDateEnd)
+VALUES
+(1, '20% OFF with minimum $20 spending!', 'https://adybybuoqeunggekybzl.supabase.co/storage/v1/object/public/BiteSpace/jj-ying-UcI5OAPD820-unsplash.jpg', 'Bronze', now(), date_add(now(), interval 3 month)),
+(2, '15% OFF all items!', 'https://adybybuoqeunggekybzl.supabase.co/storage/v1/object/public/BiteSpace/jj-ying-UcI5OAPD820-unsplash.jpg', 'Bronze', now(), date_add(now(), interval 3 month)),
+(3, '30% off with minimum $30 spending!', 'https://adybybuoqeunggekybzl.supabase.co/storage/v1/object/public/BiteSpace/jj-ying-UcI5OAPD820-unsplash.jpg', 'Silver', now(), date_add(now(), interval 3 month)),
+(4, '$10 Off any purchase, no minimum spending!', 'https://adybybuoqeunggekybzl.supabase.co/storage/v1/object/public/BiteSpace/jj-ying-UcI5OAPD820-unsplash.jpg', 'Silver', now(), date_add(now(), interval 3 month)),
+(5, 'Get 1 free main!','https://adybybuoqeunggekybzl.supabase.co/storage/v1/object/public/BiteSpace/jj-ying-UcI5OAPD820-unsplash.jpg','Gold',now(), date_add(now(), interval 3 month)),
+(6, 'Testing, promotion over','https://adybybuoqeunggekybzl.supabase.co/storage/v1/object/public/BiteSpace/jj-ying-UcI5OAPD820-unsplash.jpg','Silver', '2024-08-01', '2024-09-01'),  -- Promotion already over
+(6, 'Upcoming promotion!','https://adybybuoqeunggekybzl.supabase.co/storage/v1/object/public/BiteSpace/jj-ying-UcI5OAPD820-unsplash.jpg','Gold', '2024-12-01', '2025-02-01'); -- Promotion not started yet
+
+
+INSERT INTO messages(conversation_id,sender_id,receiver_id,message,time_sent)
+Values(2,1,2,'Hello!',now()),
+(2,2,1, 'Hey!',date_add(now(), interval 1 minute)),
+(2,2,1, "yes?" ,date_add(now(), interval 2 minute));
+INSERT INTO messages(conversation_id,sender_id,receiver_id,message,time_sent)
+Values(1,1,3,'Hello!',now()),
+(1,3,1, 'Hey! Are you the guy i met at KFC?',date_add(now(), interval 1 minute)),
+(1,1,3, "yes! We're Chicken Buddies!" ,date_add(now(), interval 2 minute));
+
+
+insert into conversations(created_at, updated_at, person1, person2)
+values(now(),now(), 1 ,2),
+(now(),now(),1,3),
+(now(),now(),1,4);
+
+//Changes
+Clients
+update clients
+set tier = 'gold'
+where client_id = 2;
+
+
+
+
+
+outlet_details
+update outlet_details
+set location = 'South'
+where outlet_id = 5;
+
+
+
+
+
+
+

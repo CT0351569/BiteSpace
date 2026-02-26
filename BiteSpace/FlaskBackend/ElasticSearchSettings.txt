@@ -1,0 +1,35 @@
+PUT /clients
+{
+  "mappings": {
+    "properties": {
+      "client_id": {
+        "type": "integer"
+      },
+      "client_name": {
+        "type": "text",
+        "analyzer": "edge_ngram_analyzer"
+      },
+      "profilepic": {
+        "type": "text"
+      }
+    }
+  },
+  "settings": {
+    "analysis": {
+      "tokenizer": {
+        "edge_ngram_tokenizer": {
+          "type": "edge_ngram",
+          "min_gram": 1,
+          "max_gram": 25,
+          "token_chars": ["letter", "digit"]
+        }
+      },
+      "analyzer": {
+        "edge_ngram_analyzer": {
+          "type": "custom",
+          "tokenizer": "edge_ngram_tokenizer"
+        }
+      }
+    }
+  }
+}

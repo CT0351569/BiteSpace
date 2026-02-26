@@ -1,0 +1,137 @@
+CREATE TABLE clients (
+    client_id INT AUTO_INCREMENT PRIMARY KEY,
+    client_name VARCHAR(100) NOT NULL,
+    username VARCHAR(50) NOT NULL,
+    passcode VARCHAR(20) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    tier VARCHAR(20) NOT NULL,
+    profilepic VARCHAR(400) NOT NULL,
+    bio VARCHAR(200),
+    private BOOLEAN NOT NULL DEFAULT FALSE,
+    exp INT NOT NULL DEFAULT 0
+);
+
+CREATE TABLE restaurants (
+    restaurant_id INT AUTO_INCREMENT PRIMARY KEY,
+    brandName VARCHAR(50) NOT NULL,
+    cuisine VARCHAR(50) NOT NULL,
+    halal BOOLEAN NOT NULL,
+    promotion BOOLEAN NOT NULL
+);
+
+CREATE TABLE outlet_details (
+    outlet_id INT AUTO_INCREMENT PRIMARY KEY,
+    restaurant_id INT NOT NULL,
+    address VARCHAR(100) NOT NULL,
+    location VARCHAR(50) NOT NULL,
+    likes INT NOT NULL,
+    profile_pic VARCHAR(400) NOT NULL,
+    featured BOOLEAN NOT NULL,
+    promotion BOOLEAN NOT NULL,
+    FOREIGN KEY (restaurant_id) REFERENCES restaurants(restaurant_id) ON DELETE CASCADE
+);
+
+CREATE TABLE reviews (
+    review_id INT AUTO_INCREMENT PRIMARY KEY,
+    outlet_id INT NOT NULL,
+    client_id INT NOT NULL,
+    review VARCHAR(500) NOT NULL,
+    rating INT NOT NULL,
+    reviewDateTime DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (outlet_id) REFERENCES outlet_details(outlet_id) ON DELETE CASCADE,
+    FOREIGN KEY (client_id) REFERENCES clients(client_id) ON DELETE CASCADE
+);
+
+CREATE TABLE posts (
+    post_id INT AUTO_INCREMENT PRIMARY KEY,
+    client_id INT NOT NULL,
+    post_time DATETIME NOT NULL,
+    image_url VARCHAR(150),
+    post_title VARCHAR(400) NOT NULL,
+    FOREIGN KEY (client_id) REFERENCES clients(client_id) ON DELETE CASCADE
+);
+
+CREATE TABLE comments (
+    comment_id INT AUTO_INCREMENT PRIMARY KEY,
+    post_id INT NOT NULL,
+    comment_time DATETIME NOT NULL,
+    comment_text VARCHAR(200) NOT NULL,
+    client_id INT NOT NULL,
+    FOREIGN KEY (post_id) REFERENCES posts(post_id) ON DELETE CASCADE,
+    FOREIGN KEY (client_id) REFERENCES clients(client_id) ON DELETE CASCADE
+);
+
+CREATE TABLE likes (
+    like_id INT AUTO_INCREMENT PRIMARY KEY,
+    post_id INT NOT NULL,
+    client_id INT NOT NULL,
+    FOREIGN KEY (post_id) REFERENCES posts(post_id) ON DELETE CASCADE,
+    FOREIGN KEY (client_id) REFERENCES clients(client_id) ON DELETE CASCADE
+);
+
+CREATE TABLE checkins (
+    checkin_id INT AUTO_INCREMENT PRIMARY KEY,
+    client_id INT NOT NULL,
+    outlet_id INT NOT NULL,
+    checkin_datetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    checkin_comment VARCHAR(500),
+    FOREIGN KEY (client_id) REFERENCES clients(client_id) ON DELETE CASCADE,
+    FOREIGN KEY (outlet_id) REFERENCES outlet_details(outlet_id) ON DELETE CASCADE
+);
+
+CREATE TABLE quests (
+    quest_id INT AUTO_INCREMENT PRIMARY KEY,
+    quest_name VARCHAR(255) NOT NULL,
+    quest_exp INT NOT NULL,
+    start_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    end_date DATETIME NOT NULL,
+    image_url VARCHAR(400) NOT NULL,
+    quest_type ENUM ('review', 'post','checkin')
+);
+
+CREATE TABLE promotions (
+    promotionID INT AUTO_INCREMENT PRIMARY KEY,
+    outlet_id INT NOT NULL,
+    PromotionTitle VARCHAR(100) NOT NULL,
+    PromotionPicture VARCHAR(400) NOT NULL,
+    PromotionTier VARCHAR(20) NOT NULL,
+    PromotionDateStart DATE NOT NULL,
+    PromotionDateEnd DATE NOT NULL,
+    CONSTRAINT fk_outlet FOREIGN KEY (outlet_id) REFERENCES outlet_details(outlet_id)
+        ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE messages (
+    message_id INT AUTO_INCREMENT PRIMARY KEY,
+    conversation_id INT,
+    sender_id INT,
+    receiver_id INT,
+    message TEXT,
+    time_sent TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (conversation_id) REFERENCES conversations(conversation_id),
+    FOREIGN KEY (sender_id) REFERENCES clients(client_id),
+    FOREIGN KEY (receiver_id) REFERENCES clients(client_id)
+);
+
+CREATE TABLE conversations (
+    conversation_id INT AUTO_INCREMENT PRIMARY KEY,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE buddyList (
+    friend_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    friend_user_id INT NOT NULL,
+    status ENUM('pending', 'accepted', 'rejected') DEFAULT 'pending' NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES clients(client_id) ON DELETE CASCADE,
+    FOREIGN KEY (friend_user_id) REFERENCES clients(client_id) ON DELETE CASCADE
+);
+
+CREATE TABLE completedQuest (
+    completionID INT AUTO_INCREMENT PRIMARY KEY,
+    quest_id INT,
+    client_id INT,
+    FOREIGN KEY (quest_id) REFERENCES quests(quest_id),
+    FOREIGN KEY (client_id) REFERENCES clients(client_id)
+);
